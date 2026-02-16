@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floriano Tori — ML Researcher</title>
+  <meta name="description" content="Floriano Tori — PhD Researcher in Machine Learning & Physics at VUB Brussels. Publications in ICLR, ECAI, NAACL.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── CSS Reset & Variables ──────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --ink-muted: #777;
+      --bg: #faf9f7;
+      --accent: #8b2500;
+      --accent-soft: #8b250018;
+      --rule: #d4d0cb;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+      --max-w: 780px;
+    }
+
+    /* ── Base ───────────────────────────────────────────── */
+    html { font-size: 17px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    a:hover { border-bottom-color: var(--accent); }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      margin-bottom: 3.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    header h1 {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    header .tagline {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.5rem;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+    }
+
+    .contact-row span::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    section { margin-bottom: 3rem; }
+
+    section > h2 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── Entry blocks (experience, education) ──────────── */
+    .entry {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .entry-date {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      padding-top: 0.15rem;
+      text-align: right;
+    }
+
+    .entry-body h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .entry-body .org {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .entry-body p,
+    .entry-body ul {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .entry-body ul {
+      margin-top: 0.3rem;
+      padding-left: 1.1rem;
+    }
+
+    .entry-body ul li { margin-bottom: 0.15rem; }
+
+    /* ── Publications ──────────────────────────────────── */
+    .pub {
+      margin-bottom: 1.3rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--accent-soft);
+    }
+
+    .pub .pub-title {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+
+    .pub .pub-authors {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-top: 0.15rem;
+    }
+
+    .pub .pub-venue {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 0.1rem;
+    }
+
+    /* ── Awards ─────────────────────────────────────────── */
+    .award {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .award-year {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-align: right;
+      padding-top: 0.1rem;
+    }
+
+    .award-body h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .award-body p {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+    }
+
+    /* ── Skills ─────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0.6rem 1.5rem;
+    }
+
+    .skills-grid dt {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-align: right;
+      padding-top: 0.15rem;
+    }
+
+    .skills-grid dd {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.15rem 0.55rem;
+      border-radius: 3px;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      text-align: center;
+    }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 600px) {
+      html { font-size: 15px; }
+      header h1 { font-size: 2.2rem; }
+
+      .entry,
+      .award,
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 0.1rem 0;
+      }
+
+      .entry-date,
+      .award-year,
+      .skills-grid dt {
+        text-align: left;
+        margin-bottom: 0;
+      }
+    }
+
+    /* ── Fade-in on load ───────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page > * {
+      animation: fadeUp 0.5s ease-out both;
+    }
+
+    .page > *:nth-child(2) { animation-delay: 0.06s; }
+    .page > *:nth-child(3) { animation-delay: 0.12s; }
+    .page > *:nth-child(4) { animation-delay: 0.18s; }
+    .page > *:nth-child(5) { animation-delay: 0.24s; }
+    .page > *:nth-child(6) { animation-delay: 0.30s; }
+    .page > *:nth-child(7) { animation-delay: 0.36s; }
+    .page > *:nth-child(8) { animation-delay: 0.42s; }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <h1>Floriano Tori</h1>
+    <div class="tagline">PhD Researcher — Machine Learning &amp; Physics</div>
+    <div class="contact-row">
+      <span>Brussels, Belgium</span>
+      <span><a href="mailto:tori.floriano@gmail.com">tori.floriano@gmail.com</a></span>
+      <span><a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" rel="noopener">Google Scholar</a></span>
+      <span><a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a></span>
+      <span><a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" rel="noopener">LinkedIn</a></span>
+    </div>
+  </header>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section>
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry-date">2021 – Present</div>
+      <div class="entry-body">
+        <h3>Teaching Assistant &amp; PhD Student</h3>
+        <div class="org">Data Analytics Laboratory — Vrije Universiteit Brussel</div>
+        <p>
+          PhD in interdisciplinary sciences (Physics &amp; Computer Science). Research on
+          incorporating physical knowledge into neural networks to design complex systems,
+          understand learning dynamics, and discover hidden symmetries.
+          Promotor: Prof. Dr. Vincent Ginis.
+        </p>
+        <ul>
+          <li>Mathematics I for BSc Business Economics (2021–22)</li>
+          <li>Advanced Mathematics for BSc Business Economics (2022–24)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">Aug 2018 &amp; 2019</div>
+      <div class="entry-body">
+        <h3>Preparation Course Instructor</h3>
+        <div class="org">Vrije Universiteit Brussel</div>
+        <p>Taught exercise sessions in physics and chemistry for incoming bachelor students.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PUBLICATIONS ═══ -->
+  <section>
+    <h2>Publications</h2>
+
+    <div class="pub">
+      <div class="pub-title">ExtremONet: Extreme-Learning-based Neural Operator for Identifying Dynamical Systems</div>
+      <div class="pub-authors">J. Beysen &amp; F. Tori</div>
+      <div class="pub-venue">ECAI 2025</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">The Effectiveness of Curvature-Based Rewiring and the Role of Hyperparameters in GNNs Revisited</div>
+      <div class="pub-authors">F. Tori, V. Holst &amp; V. Ginis</div>
+      <div class="pub-venue">ICLR 2025</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">How Deeply Do LLMs Internalize Human Citation Practices? A Graph-Structural and Embedding-Based Evaluation</div>
+      <div class="pub-authors">M. Mobini, V. Holst, F. Tori, A. Algaba &amp; V. Ginis</div>
+      <div class="pub-venue">ICLR 2025 — Workshop on Human-AI Coevolution</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Large Language Models Reflect Human Citation Patterns with a Heightened Citation Bias</div>
+      <div class="pub-authors">A. Algaba, C. Mazijn, V. Holst, F. Tori, S. Wenmackers &amp; V. Ginis</div>
+      <div class="pub-venue">NAACL 2025</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Performing Sentiment Analysis using NLP Models for Urban Policymaking</div>
+      <div class="pub-authors">F. Tori, S. Tori, I. Keseru &amp; V. Ginis</div>
+      <div class="pub-venue">Data Science for Transportation, 6(5), 2025 · <a href="https://doi.org/10.1007/s42421-024-00090-5" target="_blank" rel="noopener">doi</a></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Phase Space Approach to Solving Higher Order Differential Equations with Artificial Neural Networks</div>
+      <div class="pub-authors">F. Tori &amp; V. Ginis</div>
+      <div class="pub-venue">Physical Review Research, 4(4), 2022 · <a href="https://doi.org/10.1103/PhysRevResearch.4.043090" target="_blank" rel="noopener">doi</a></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Assessing Mobility Policy with AI-Driven Analysis of User-Generated Content</div>
+      <div class="pub-authors">F. Tori, C. Van Vessem, J. Arenas &amp; V. Ginis</div>
+      <div class="pub-venue">Book chapter in <em>Strengthening European Mobility Policy</em>, Palgrave Macmillan, 2024 · <a href="https://doi.org/10.1007/978-3-031-67936-0_8" target="_blank" rel="noopener">doi</a></div>
+    </div>
+  </section>
+
+  <!-- ═══ EDUCATION ═══ -->
+  <section>
+    <h2>Education</h2>
+
+    <div class="entry">
+      <div class="entry-date">2019 – 2021</div>
+      <div class="entry-body">
+        <h3>MSc Physics — <em>Summa cum Laude</em> (91%)</h3>
+        <div class="org">Vrije Universiteit Brussel</div>
+        <p>
+          Thesis: "Dualities and Geometries of String- and M-theory"<br>
+          Erasmus exchange at EPFL, Lausanne (Feb–Aug 2020)
+        </p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2016 – 2019</div>
+      <div class="entry-body">
+        <h3>BSc Physics — <em>Magna cum Laude</em> (82%)</h3>
+        <div class="org">Vrije Universiteit Brussel</div>
+        <p>Thesis: "Entanglement Entropy Evolution in a Quantum Ising Spin Chain with Longitudinal and Transversal Magnetic Field"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ AWARDS ═══ -->
+  <section>
+    <h2>Awards</h2>
+
+    <div class="award">
+      <div class="award-year">2021</div>
+      <div class="award-body">
+        <h3>Robert Brout Prize</h3>
+        <p>Awarded by the International Solvay Institutes for Physics and Chemistry to the best graduating MSc Physics student at VUB.</p>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-year">2019</div>
+      <div class="award-body">
+        <h3>International Conference of Undergraduate Research (ICUR)</h3>
+        <p>Selected for best BSc thesis in physics; presented at the Monash-Warwick University Alliance global conference.</p>
+      </div>
+    </div>
+
+    <div class="award">
+      <div class="award-year">2019</div>
+      <div class="award-body">
+        <h3>VUB Student Engagement Award</h3>
+        <p>Recognised for extensive involvement in student organisations across the university.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section>
+    <h2>Skills</h2>
+
+    <dl class="skills-grid">
+      <dt>Languages</dt>
+      <dd>French, Dutch, Italian (native) · English (fluent) · German (basic)</dd>
+
+      <dt>ML &amp; DL</dt>
+      <dd>
+        <span class="tag">PyTorch</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">HuggingFace</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">W&amp;B</span>
+        <span class="tag">Pandas</span>
+      </dd>
+
+      <dt>Programming</dt>
+      <dd>
+        <span class="tag">Python</span>
+        <span class="tag">Bash</span>
+        <span class="tag">MATLAB</span>
+        <span class="tag">Mathematica</span>
+      </dd>
+
+      <dt>Tools</dt>
+      <dd>
+        <span class="tag">Git</span>
+        <span class="tag">SLURM / HPC</span>
+        <span class="tag">LaTeX</span>
+      </dd>
+    </dl>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    &copy; 2025 Floriano Tori · Built with plain HTML &amp; CSS
+  </footer>
+
+</div>
+</body>
+</html>
