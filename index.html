@@ -25,18 +25,18 @@
       --rule: #d4d0cb;
       --serif: 'Cormorant Garamond', Georgia, serif;
       --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
-      --max-w: 780px;
+      --max-w: 1280px;
     }
 
     /* ── Base ───────────────────────────────────────────── */
-    html { font-size: 17px; scroll-behavior: smooth; }
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
       font-weight: 400;
       color: var(--ink);
       background: var(--bg);
-      line-height: 1.65;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -52,19 +52,35 @@
     .page {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 4rem 2rem 6rem;
+      padding: 1.5rem 2rem 1rem;
+      animation: fadeUp 0.4s ease-out both;
     }
 
     /* ── Header ─────────────────────────────────────────── */
     header {
-      margin-bottom: 3.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 1.2rem;
       padding-bottom: 2rem;
       border-bottom: 2px solid var(--ink);
     }
 
+    .header-text {
+      flex: 1;
+    }
+
+    .header-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
     header h1 {
       font-family: var(--serif);
-      font-size: 3rem;
+      font-size: 2.2rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.1;
@@ -99,17 +115,30 @@
       vertical-align: middle;
     }
 
+    /* ── Two-column grid ───────────────────────────────── */
+    .columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 32%);
+      gap: 0 2.5rem;
+      align-items: start;
+    }
+
+    .col-right {
+      border-left: 1px solid var(--rule);
+      padding-left: 2rem;
+    }
+
     /* ── Sections ───────────────────────────────────────── */
-    section { margin-bottom: 3rem; }
+    section { margin-bottom: 1.2rem; }
 
     section > h2 {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: 0.85rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--accent);
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.5rem;
       padding-bottom: 0.4rem;
       border-bottom: 1px solid var(--rule);
     }
@@ -117,9 +146,9 @@
     /* ── Entry blocks (experience, education) ──────────── */
     .entry {
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 110px 1fr;
       gap: 0 1.5rem;
-      margin-bottom: 1.6rem;
+      margin-bottom: 0.8rem;
     }
 
     .entry-date {
@@ -138,7 +167,7 @@
     }
 
     .entry-body .org {
-      font-size: 0.9rem;
+      font-size: 0.78rem;
       font-weight: 500;
       color: var(--ink-light);
       margin-bottom: 0.3rem;
@@ -146,7 +175,7 @@
 
     .entry-body p,
     .entry-body ul {
-      font-size: 0.92rem;
+      font-size: 0.78rem;
       color: var(--ink-light);
       line-height: 1.6;
     }
@@ -160,7 +189,7 @@
 
     /* ── Publications ──────────────────────────────────── */
     .pub {
-      margin-bottom: 1.3rem;
+      margin-bottom: 0.55rem;
       padding-left: 1rem;
       border-left: 2px solid var(--accent-soft);
     }
@@ -168,33 +197,82 @@
     .pub .pub-title {
       font-family: var(--serif);
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.0rem;
       line-height: 1.35;
     }
 
-    .pub .pub-authors {
+    .pub .pub-meta {
       font-size: 0.85rem;
       color: var(--ink-muted);
-      margin-top: 0.15rem;
+      margin-top: 0.05rem;
+      line-height: 1.3;
     }
 
-    .pub .pub-authors .me {
+    .pub .pub-meta .me {
       text-decoration: underline;
       text-underline-offset: 2px;
       color: var(--ink);
     }
 
-    .pub .pub-venue {
-      font-size: 0.85rem;
+    .pub .pub-meta .venue {
       font-weight: 500;
       color: var(--accent);
-      margin-top: 0.1rem;
+    }
+
+    .pub-type {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.05rem 0.35rem;
+      border-radius: 2px;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+
+    /* ── Expandable pub details ────────────────────────── */
+    details.pub > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 1.2rem;
+    }
+    details.pub > summary::-webkit-details-marker { display: none; }
+
+    details.pub > summary::after {
+      content: '+';
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      transition: transform 0.2s;
+    }
+    details.pub[open] > summary::after {
+      content: '−';
+    }
+
+    .pub-details {
+      margin-top: 0.4rem;
+      padding: 0.5rem 0 0.2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      line-height: 1.55;
+    }
+
+    .pub-details p + p {
+      margin-top: 0.3rem;
     }
 
     /* ── Awards ─────────────────────────────────────────── */
     .award {
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 50px 1fr;
       gap: 0 1.5rem;
       margin-bottom: 1rem;
     }
@@ -215,14 +293,14 @@
     }
 
     .award-body p {
-      font-size: 0.88rem;
+      font-size: 0.78rem;
       color: var(--ink-light);
     }
 
     /* ── Skills ─────────────────────────────────────────── */
     .skills-grid {
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 90px 1fr;
       gap: 0.6rem 1.5rem;
     }
 
@@ -243,7 +321,7 @@
       display: inline-block;
       background: var(--accent-soft);
       color: var(--accent);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 500;
       padding: 0.15rem 0.55rem;
       border-radius: 3px;
@@ -252,7 +330,7 @@
 
     /* ── Footer ─────────────────────────────────────────── */
     footer {
-      margin-top: 3rem;
+      margin-top: 0.8rem;
       padding-top: 1.5rem;
       border-top: 1px solid var(--rule);
       font-size: 0.8rem;
@@ -261,9 +339,22 @@
     }
 
     /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .columns {
+        grid-template-columns: 1fr;
+        gap: 1.5rem 0;
+      }
+      .col-right {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+      }
+    }
+
     @media (max-width: 600px) {
       html { font-size: 15px; }
-      header h1 { font-size: 2.2rem; }
+      header h1 { font-size: 2rem; }
 
       .entry,
       .award,
@@ -286,19 +377,9 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .page > * {
-      animation: fadeUp 0.5s ease-out both;
+    @media (prefers-reduced-motion: reduce) {
+      .page { animation: none; }
     }
-
-    .page > *:nth-child(2) { animation-delay: 0.06s; }
-    .page > *:nth-child(3) { animation-delay: 0.12s; }
-    .page > *:nth-child(4) { animation-delay: 0.18s; }
-    .page > *:nth-child(5) { animation-delay: 0.24s; }
-    .page > *:nth-child(6) { animation-delay: 0.30s; }
-    .page > *:nth-child(7) { animation-delay: 0.36s; }
-    .page > *:nth-child(8) { animation-delay: 0.42s; }
-    .page > *:nth-child(9) { animation-delay: 0.48s; }
-    .page > *:nth-child(10) { animation-delay: 0.54s; }
   </style>
 </head>
 
@@ -307,16 +388,22 @@
 
   <!-- ═══ HEADER ═══ -->
   <header>
-    <h1>Floriano Tori</h1>
-    <div class="tagline">PhD Researcher — Machine Learning &amp; Physics</div>
-    <div class="contact-row">
-      <span>Brussels, Belgium</span>
-      <span><a href="mailto:tori.floriano@gmail.com">tori.floriano@gmail.com</a></span>
-      <span><a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" rel="noopener">Google Scholar</a></span>
-      <span><a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a></span>
-      <span><a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" rel="noopener">LinkedIn</a></span>
+    <div class="header-text">
+      <h1>Floriano Tori</h1>
+      <div class="tagline">PhD Researcher — Machine Learning &amp; Physics</div>
+      <div class="contact-row">
+        <span>Brussels, Belgium</span>
+        <span><a href="mailto:tori.floriano@gmail.com">tori.floriano@gmail.com</a></span>
+        <span><a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" rel="noopener">Google Scholar</a></span>
+        <span><a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a></span>
+        <span><a href="https://linkedin.com/in/YOUR_PROFILE" target="_blank" rel="noopener">LinkedIn</a></span>
+      </div>
     </div>
+    <img class="header-photo" src="FlorianoTori.jpg" alt="Floriano Tori">
   </header>
+
+  <div class="columns">
+  <div class="col-left">
 
   <!-- ═══ EXPERIENCE ═══ -->
   <section>
@@ -353,63 +440,94 @@
   <section>
     <h2>Publications</h2>
 
-    <div class="pub">
-      <div class="pub-title">Structurally Human, Semantically Biased: Detecting LLM-Generated References with Embeddings and GNNs</div>
-      <div class="pub-authors">M. Mobini, V. Holst, <span class="me">F. Tori</span>, A. Algaba &amp; V. Ginis</div>
-      <div class="pub-venue">ICLR 2026 · <a href="https://openreview.net/forum?id=cEXEmyW77N" target="_blank" rel="noopener">openreview</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title">Structurally Human, Semantically Biased: Detecting LLM-Generated References with Embeddings and GNNs</div>
+        <div class="pub-meta">M. Mobini, V. Holst, <span class="me">F. Tori</span>, A. Algaba &amp; V. Ginis · <span class="venue">ICLR 2026</span> · <a href="https://openreview.net/forum?id=cEXEmyW77N" target="_blank" rel="noopener">openreview</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> Large language models are increasingly used to curate bibliographies, raising the question: are their reference lists distinguishable from human ones? We build paired citation graphs, ground truth and GPT-4o-generated (from parametric knowledge), for 10,000 focal papers (≈275k references) from SciSciNet, and added a field-matched random baseline that preserves out-degree and field distributions while breaking latent structure. We compare (i) structure-only node features (degree/closeness/eigenvector centrality, clustering, edge count) with (ii) 3072-D title/abstract embeddings, using an RF on graph-level aggregates and Graph Neural Networks with node features. Structure alone barely separates GPT from ground truth (RF accuracy ≈0.60) despite cleanly rejecting the random baseline (≈ 0.89--0.92). By contrast, embeddings sharply increase separability: RF on aggregated embeddings reaches ≈0.83, and GNNs with embedding node features achieve 93\% test accuracy on GPT vs. ground truth. We show the robustness of our findings by replicating the pipeline with Claude Sonnet 4.5 and with multiple embedding models (OpenAI and SPECTER), with RF separability for ground truth vs. Claude ≈0.77 and clean rejection of the random baseline. Thus, LLM bibliographies, generated purely from parametric knowledge, closely mimic human citation topology, but leave detectable semantic fingerprints; detection and debiasing should target content signals rather than global graph structure.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong>  Large Language Models (LLMs) · Citation Networks · Graph Neural Networks (GNNs)</p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">The Effectiveness of Curvature-Based Rewiring and the Role of Hyperparameters in GNNs Revisited</div>
-      <div class="pub-authors"><span class="me">F. Tori</span>, V. Holst &amp; V. Ginis</div>
-      <div class="pub-venue">ICLR 2025 · <a href="https://openreview.net/forum?id=EcrdmRT99M" target="_blank" rel="noopener">openreview</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title"><span class="pub-type">Workshop</span>ExtremONet: Extreme-Learning-based Neural Operator for Identifying Dynamical Systems</div>
+        <div class="pub-meta">J. Beysen &amp; <span class="me">F. Tori</span> · <span class="venue">ECAI 2025 — Workshop on ML Meets Differential Equations</span> · <a href="https://proceedings.mlr.press/v277/beysen25a.html" target="_blank" rel="noopener">pmlr</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> The DeepONet, based on the Universal Approximation Theorem for Operators (UATO), made a significant impact on Deep Learning research due to its ability to learn maps between function spaces instead of between vector spaces like traditional Neural Networks. However, DeepONets are computationally expensive to train. To address this we introduce the ExtremONet: an Extreme-Learning-Machine-based variation of the DeepONet, capable of one-step learning maps between function spaces. We show that ExtremONets approach DeepONets in training error whilst displaying lower generalization error, and training between two to four orders of magnitude faster on small datasets. Our work represents an important step towards efficient dynamical modeling using Machine Learning. We conclude our analysis with an exploration of the ExtremONet’s Out-of-Distribution Generalization capabilities.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> Neural Operator · Extreme-Learning-Machines · Ordinary Differential Equations · Partial Differential Equations · Out-of-Distribution Generalization</p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">Large Language Models Reflect Human Citation Patterns with a Heightened Citation Bias</div>
-      <div class="pub-authors">A. Algaba, C. Mazijn, V. Holst, <span class="me">F. Tori</span>, S. Wenmackers &amp; V. Ginis</div>
-      <div class="pub-venue">NAACL 2025 · <a href="https://aclanthology.org/2025.findings-naacl.381/" target="_blank" rel="noopener">acl anthology</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title">Large Language Models Reflect Human Citation Patterns with a Heightened Citation Bias</div>
+        <div class="pub-meta">A. Algaba, C. Mazijn, V. Holst, <span class="me">F. Tori</span>, S. Wenmackers &amp; V. Ginis · <span class="venue">NAACL 2025</span> · <a href="https://aclanthology.org/2025.findings-naacl.381/" target="_blank" rel="noopener">acl anthology</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> Citation practices are crucial in shaping the structure of scientific knowledge, yet they are often influenced by contemporary norms and biases. The emergence of Large Language Models (LLMs) introduces a new dynamic to these practices. Interestingly, the characteristics and potential biases of references recommended by LLMs that entirely rely on their parametric knowledge, and not on search or retrieval-augmented generation, remain unexplored. Here, we analyze these characteristics in an experiment using a dataset from AAAI, NeurIPS, ICML, and ICLR, published after GPT-4’s knowledge cut-off date. In our experiment, LLMs are asked with suggesting scholarly references for the anonymized in-text citations within these papers. Our findings reveal a remarkable similarity between human and LLM citation patterns, but with a more pronounced high citation bias, which persists even after controlling for publication year, title length, number of authors, and venue. The results hold for both GPT-4, and the more capable models GPT-4o and Claude 3.5 where the papers are part of the training data. Additionally, we observe a large consistency between the characteristics of LLM’s existing and non-existent generated references, indicating the model’s internalization of citation patterns. By analyzing citation graphs, we show that the references recommended are embedded in the relevant citation context, suggesting an even deeper conceptual internalization of the citation networks. While LLMs can aid in citation generation, they may also amplify existing biases, such as the Matthew effect, and introduce new ones, potentially skewing scientific knowledge dissemination</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> TBD</p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">Performing Sentiment Analysis using NLP Models for Urban Policymaking</div>
-      <div class="pub-authors"><span class="me">F. Tori</span>, S. Tori, I. Keseru &amp; V. Ginis</div>
-      <div class="pub-venue">Data Science for Transportation, 6(5), 2025 · <a href="https://doi.org/10.1007/s42421-024-00090-5" target="_blank" rel="noopener">doi</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title">The Effectiveness of Curvature-Based Rewiring and the Role of Hyperparameters in GNNs Revisited</div>
+        <div class="pub-meta"><span class="me">F. Tori</span>, V. Holst &amp; V. Ginis · <span class="venue">ICLR 2025</span> · <a href="https://openreview.net/forum?id=EcrdmRT99M" target="_blank" rel="noopener">openreview</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> Message passing is the dominant paradigm in Graph Neural Networks (GNNs). The efficiency of message passing, however, can be limited by the topology of the graph. This happens when information is lost during propagation due to being oversquashed when travelling through bottlenecks. To remedy this, recent efforts have focused on graph rewiring techniques, which disconnect the input graph originating from the data and the computational graph, on which message passing is performed. A prominent approach for this is to use discrete graph curvature measures, of which several variants have been proposed, to identify and rewire around bottlenecks, facilitating information propagation. While oversquashing has been demonstrated in synthetic datasets, in this work we reevaluate the performance gains that curvature-based rewiring brings to real-world datasets. We show that in these datasets, edges selected during the rewiring process are not in line with theoretical criteria identifying bottlenecks. This implies they do not necessarily oversquash information during message passing. Subsequently, we demonstrate that SOTA accuracies on these datasets are outliers originating from sweeps of hyperparameters -- both the ones for training and dedicated ones related to the rewiring algorithm -- instead of consistent performance gains. In conclusion, our analysis nuances the effectiveness of curvature-based rewiring in real-world datasets and brings a new perspective on the methods to evaluate GNN accuracy improvements.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> Geometric deep learning · Graph Neural Networks · Graph Rewiring · Curvature</p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">Phase Space Approach to Solving Higher Order Differential Equations with Artificial Neural Networks</div>
-      <div class="pub-authors"><span class="me">F. Tori</span> &amp; V. Ginis</div>
-      <div class="pub-venue">Physical Review Research, 4(4), 2022 · <a href="https://doi.org/10.1103/PhysRevResearch.4.043090" target="_blank" rel="noopener">doi</a></div>
-    </div>
-  </section>
+    <details class="pub">
+      <summary>
+        <div class="pub-title">Performing Sentiment Analysis using NLP Models for Urban Policymaking</div>
+        <div class="pub-meta"><span class="me">F. Tori</span>, S. Tori, I. Keseru &amp; V. Ginis · <span class="venue">Data Science for Transportation, 6(5), 2025</span> · <a href="https://doi.org/10.1007/s42421-024-00090-5" target="_blank" rel="noopener">doi</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> Mobility is a core challenge to transition towards sustainability. Cities are, therefore, rethinking their mobility to reduce negative externalities such as (greenhouse) gas emissions or congestion. When trying to implement sustainable urban mobility plans, there is often resistance from citizens. This can indicate a disconnect between the public and policymakers due to a lack of participation, coupled with the fact that current data-collection methods often used (such as travel surveys) are limited in scope. Advances in big data analysis and user-generated content provide opportunities to gain deeper insights into citizens' perceptions of mobility policy changes. This paper explores how sentiment analysis through deep learning can be used in transport planning.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> Sentiment analysis · User-generated content · Urban mobility · Large language models · Transport planning</p>
+      </div>
+    </details>
 
-  <!-- ═══ WORKSHOP PAPERS ═══ -->
-  <section>
-    <h2>Workshop Papers</h2>
+    <details class="pub">
+      <summary>
+        <div class="pub-title"><span class="pub-type">Workshop</span>How Deeply Do LLMs Internalize Human Citation Practices? A Graph-Structural and Embedding-Based Evaluation</div>
+        <div class="pub-meta">M. Mobini, V. Holst, <span class="me">F. Tori</span>, A. Algaba &amp; V. Ginis · <span class="venue">ICLR 2025 — Workshop on Human-AI Coevolution</span> · <a href="https://openreview.net/forum?id=DTt2F2lCeh" target="_blank" rel="noopener">openreview</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> The spread of scientific knowledge depends on how researchers discover and cite previous work. The adoption of large language models (LLMs) in the scientific research process introduces a new layer to these citation practices. However, it remains unclear to what extent LLMs align with human citation practices, how they perform across domains, and may influence citation dynamics. Here, we show that LLMs systematically reinforce the Matthew effect in citations by consistently favoring highly cited papers when generating references. This pattern persists across scientific domains despite significant field-specific variations in existence rates, which refer to the proportion of generated references that match existing records in external bibliometric databases. Analyzing 274,951 references generated by GPT-4o for 10,000 papers, we find that LLM recommendations diverge from traditional citation patterns by preferring more recent references with shorter titles and fewer authors. Emphasizing their content-level relevance, the generated references are semantically aligned with the content of each paper at levels comparable to the ground truth references and display similar network effects while reducing author self-citations. These findings illustrate how LLMs may reshape citation practices and influence the trajectory of scientific discovery by reflecting and amplifying established trends. As LLMs become more integrated into the scientific research process, it is important to understand their role in shaping how scientific communities discover and build upon prior work.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> TBD</p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">ExtremONet: Extreme-Learning-based Neural Operator for Identifying Dynamical Systems</div>
-      <div class="pub-authors">J. Beysen &amp; <span class="me">F. Tori</span></div>
-      <div class="pub-venue">ECAI 2025 — Workshop on ML Meets Differential Equations · <a href="https://proceedings.mlr.press/v277/beysen25a.html" target="_blank" rel="noopener">pmlr</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title"><span class="pub-type">Chapter</span>Assessing Mobility Policy with AI-Driven Analysis of User-Generated Content</div>
+        <div class="pub-meta"><span class="me">F. Tori</span>, C. Van Vessem, J. Arenas &amp; V. Ginis · <span class="venue"><em>Strengthening European Mobility Policy</em>, Palgrave Macmillan, 2024</span> · <a href="https://doi.org/10.1007/978-3-031-67936-0_8" target="_blank" rel="noopener">doi</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> We recommend assessing mobility policies with AI-driven analysis of user-generated content. To achieve this policy recommendation, we propose to take into account the following: (1) Using large language models to analyse user-generated content is a reliable methodology for gathering and analysing typically overlooked relevant information regarding citizens' perceptions in the implementation of sustainable mobility policies; (2) The substantial processing capacity of these models, coupled with their ability to gather a great amount of information, enables decision-makers to supplement and enhance the often-limited traditional data collection methods. As exposed in the following case study, this methodology can provide historical perceptual information on transport modes, mobility policies, and infrastructure, among others; and (3) The ease of applying this methodology through AI open-source recent developments such as ChatGPT allows decision-makers and their teams to rapidly generate and assess a great amount of relevant data. This can facilitate policymakers' effectiveness and efficiency in the decision-making processes in urban mobility planning. However, policymakers should be aware of the characteristics of their selected population and use this as a complementary and evaluative method.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> Large Lanuage Models · Twitter ·  Mobility Planning · Policy Interventions </p>
+      </div>
+    </details>
 
-    <div class="pub">
-      <div class="pub-title">How Deeply Do LLMs Internalize Human Citation Practices? A Graph-Structural and Embedding-Based Evaluation</div>
-      <div class="pub-authors">M. Mobini, V. Holst, <span class="me">F. Tori</span>, A. Algaba &amp; V. Ginis</div>
-      <div class="pub-venue">ICLR 2025 — Workshop on Human-AI Coevolution · <a href="https://openreview.net/forum?id=DTt2F2lCeh" target="_blank" rel="noopener">openreview</a></div>
-    </div>
-  </section>
-
-  <!-- ═══ BOOK CHAPTERS ═══ -->
-  <section>
-    <h2>Book Chapters</h2>
-
-    <div class="pub">
-      <div class="pub-title">Assessing Mobility Policy with AI-Driven Analysis of User-Generated Content</div>
-      <div class="pub-authors"><span class="me">F. Tori</span>, C. Van Vessem, J. Arenas &amp; V. Ginis</div>
-      <div class="pub-venue"><em>Strengthening European Mobility Policy</em>, Palgrave Macmillan, 2024 · <a href="https://doi.org/10.1007/978-3-031-67936-0_8" target="_blank" rel="noopener">doi</a></div>
-    </div>
+    <details class="pub">
+      <summary>
+        <div class="pub-title">Phase Space Approach to Solving Higher Order Differential Equations with Artificial Neural Networks</div>
+        <div class="pub-meta"><span class="me">F. Tori</span> &amp; V. Ginis · <span class="venue">Physical Review Research, 4(4), 2022</span> · <a href="https://doi.org/10.1103/PhysRevResearch.4.043090" target="_blank" rel="noopener">doi</a></div>
+      </summary>
+      <div class="pub-details">
+        <p class="pub-abstract"><strong>Abstract:</strong> The ability to solve differential equations represents a key step in the modeling and understanding of complex systems. There exist several analytical and numerical methods for solving differential equations, each with their own advantages and limitations. Physics-informed neural networks (PINNs) offer an alternative perspective. Although PINNs deliver promising results, many stones remain unturned about this method. In this paper, we introduce a method that improves the efficiency of PINNs in solving differential equations. Our method is related to the formulation of the problem: Instead of training a network to solve an 𝑛⁢th
+order differential equation, we propose transforming the problem into the equivalent system of 𝑛first-order equations in phase space. The target of the network is to solve all equations of the system simultaneously, effectively introducing a multitask optimization problem. We compare both approaches empirically on various problems, ranging from second-order differential equations with constant coefficients to higher-order and nonlinear problems. We also show that our approach is suited for solving partial differential equations. Our results show that the system approach performs equal or better in most experiments performed. We analyze the learning process for the few runs that did not perform well and show that the problem stems from conflicting gradients during training, effectively obstructing multitask learning. The result of this paper is a straightforward heuristic that can be incorporated into any subsequent research that builds on PINNs solving differential equations. Moreover, it also shows how to make PINNs even more efficient by implementing techniques from multitask learning literature.</p>
+        <p class="pub-keywords"><strong>Keywords:</strong> Physics of Computations · Artificial Neural Networks · Differential Equations </p>
+      </div>
+    </details>
   </section>
 
   <!-- ═══ EDUCATION ═══ -->
@@ -437,6 +555,9 @@
       </div>
     </div>
   </section>
+
+  </div>
+  <div class="col-right">
 
   <!-- ═══ AWARDS ═══ -->
   <section>
@@ -501,6 +622,9 @@
       </dd>
     </dl>
   </section>
+
+  </div>
+  </div>
 
   <!-- ═══ FOOTER ═══ -->
   <footer>
